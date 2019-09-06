@@ -49,12 +49,45 @@
         
 
 
-        //3) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
+        //3+) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
         // и одно статическое свойство yearOfIssue
+        // class App {
+        //     constructor() {
+        //     };
+        // }
+
+
+
         class App {
-            constructor() {
+            constructor(date) {
+                this.date = date;
             };
+            set product([name, price]) {
+                this._product = {
+                    name,
+                    price
+                }
+            }
+            get product() {
+                return `${this._product.name}: ${this._product.price}`;
+            }
+            static yearOfIssue(app) {
+                return app.date.getFullYear();
+            }
         }
+
+        const firstApp = new App(new Date(2013, 8, 2));
+        const secondApp = new App(new Date(2012, 11, 28));
+        const thirdApp = new App(new Date());
+
+        firstApp.product = ['Firefox', 1000];
+        secondApp.product = ['Chrome', 1200];
+
+        console.log(`Price of firstApp - ${firstApp.product}`);
+        console.log(`Price of secondApp - ${secondApp.product}`);
+        console.log('Year firstApp: ', App.yearOfIssue(firstApp));
+        console.log('Year secondApp: ', App.yearOfIssue(secondApp));
+        console.log('Year thirdApp: ', App.yearOfIssue(thirdApp));
 
 
 
@@ -69,15 +102,31 @@
 
 
 
-        // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
-        class NewApp {
-            constructor(object) {
+        // 5+) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
+        // class NewApp {
+        //     constructor(object) {
+        //         this.object = object;
+        //     }
+        //     getObject() {
+        //         return object;
+        //     }
+        // }
+
+
+        var NewApp = (function () {
+            function NewApp(object) {
                 this.object = object;
             }
-            getObject() {
-                return object;
+            NewApp.prototype.getObject = function () {
+                return this.object;
             }
-        }
+            return NewApp;
+        })();
+
+        var app = new NewApp({
+            AppName: 'Firefox'
+        });
+        console.log('Get object:', app.getObject());
 
 
     </script>
