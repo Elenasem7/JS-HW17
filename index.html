@@ -8,7 +8,7 @@
     <script>
         // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
 
-        //1+) Есть две функции конструктор! Нужно c помощью prototype сделать second родителем first!
+        //1) Есть две функции конструктор! Нужно c помощью prototype сделать second родителем first!
             function A(name) {
                 this.name = name;
             }
@@ -26,7 +26,7 @@
 
 
 
-        //2+) Создать класс функция конструктор которого принимает два параметра position, salary, 
+        //2) Создать класс функция конструктор которого принимает два параметра position, salary, 
         // также создать одно private поле positions = ['software developer', 'hr manager', 'project manager'], getter(get функция)!
         // которая смотрит на поле positions, и если в position есть одно из перечисленных то возвращает true иначе false
 
@@ -49,7 +49,7 @@
         
 
 
-        //3+) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
+        //3) Есть класс App! Добавить две функции одна из них устанавливает product(создает поле product обьект с полем name, price), вторая функция получает price 
         // и одно статическое свойство yearOfIssue
         // class App {
         //     constructor() {
@@ -92,17 +92,87 @@
 
 
         // 4) Пишем свой split и join))!
-        function split() {
-            // your code
+        // function split() {
+        //     // your code
+        // }
+        // function join() {
+        //     // your code
+        // }
+
+
+        //         SPLIT
+        function split(str = '', separator, limit = -1) {
+            let arr = [],
+                temp = '';
+            separator = String(separator);
+            if (separator === 'null' || !str.includes(separator)) {
+                arr.push(str);
+                return arr;
+            } else if (separator === '') {
+                for (let i = 0; i < str.length; i++) {
+                    arr.push(str[i]);
+                }
+                return arr;
+            }
+            for (let i = 0; i < str.length;) {
+                if (str.startsWith(separator, i) && temp) {
+                    arr.push(temp);
+                    temp = '';
+                    i += separator.length;
+                } else if (i === str.length - 1) {
+                    temp += str[i];
+                    arr.push(temp);
+                    i++
+                } else {
+                    temp += str[i];
+                    i++;
+                }
+            }
+            if (limit > arr.length) {
+                limit = arr.length;
+            } else {
+                limit = limit;
+            }
+
+            if (limit > -1) {
+                return (arr.length = limit, arr);
+            } else {
+                return arr;
+            }
         }
-        function join() {
-            // your code
+
+        let string = 'Я! изучаю JavaScript прямо; сейчас';
+        console.log(`String: "${string}"`);
+        console.log(`Split: [${split(string)}]`);
+        console.log(`Split, ''): [${split(string, '')}]`);
+        console.log(`Split, ' ', 3): [${split(string, ' ', 3)}]`);
+        console.log(`Split, ' ', 70): [${split(string, ' ', 70)}]`);
+        console.log(`Split, ' ', -700): [${split(string, ' ', -700)}]`);
+        
+        
+        
+//         JOIN
+        function join(array, separator = ',') {
+            separator = String(separator);
+            return array.reduce((a, c, i, arr) => {
+                c = c === undefined || c === null ? '' : c;
+                return i === arr.length - 1 ? a += c : a += c + separator;
+            }, '');
+
         }
 
+        let array = ['Я', 'изучаю', 'JavaScript', 'прямо', 'сейчас', null, 35, undefined, true];
+        console.log('Array:', array);
+        console.log('Join: ', join(array));
+        console.log('Join, []: ', join(array, []));
+        console.log('Join, " ": ', join(array, ' '));
+        console.log('Join, "-": ', join(array, '-'));
 
 
 
-        // 5+) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
+
+
+        // 5) Ну и на последок перепишем класс в вид самовыз функция которая возвращает функцию-конструктор
         // class NewApp {
         //     constructor(object) {
         //         this.object = object;
